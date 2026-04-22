@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Federados App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container header-flex">
+            <div class="logo" onclick="showPage('feed-page')" style="cursor:pointer">Federados <span class="logo-sub">App</span></div>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar...">
+            </div>
+            
+            <nav class="nav-links">
+                <a href="javascript:void(0)" onclick="showPage('feed-page')">Início</a>
+                <a href="javascript:void(0)" onclick="showPage('profile-page')">Perfil</a>
+                <a href="#">Sair</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container main-layout">
+        
+        <aside class="sidebar-left col-1">
+            <div class="card profile-box">
+                <div class="avatar-placeholder">
+                    <img src="https://via.placeholder.com/150" alt="Foto">
+                </div>
+                <h3 id="display-name">Gabriel Almeida</h3>
+                <nav class="side-nav">
+                    <a href="javascript:void(0)" onclick="showPage('profile-page')">Editar Perfil</a>
+                    <a href="javascript:void(0)" onclick="showPage('feed-page')">Ver Feed</a>
+                </nav>
+            </div>
+        </aside>
+
+        <section class="content-area col-2">
+            
+            <div id="feed-page" class="page-content">
+                <div class="card post-creator">
+                    <div class="post-tabs">
+                        <span>Postar Status</span>
+                    </div>
+                    <textarea placeholder="No que você está pensando?"></textarea>
+                    <div class="post-footer">
+                        <button class="btn-publish">Publicar</button>
+                    </div>
+                </div>
+
+                <div class="card post">
+                    <div class="post-header">
+                        <div class="mini-avatar"></div>
+                        <div>
+                            <strong>Prof. Carlos Augusto</strong>
+                            <span class="post-time">Postado agora</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <h4>Bem-vindo ao Federados!</h4>
+                        <p>Este é o seu feed de notícias. Aqui você verá atualizações dos seus cursos e colegas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="profile-page" class="page-content" style="display: none;">
+                <div class="card profile-edit-container">
+                    <h2 class="section-title">Configurações de Perfil</h2>
+                    <form id="edit-form">
+                        <div class="form-group">
+                            <label>Nome Completo</label>
+                            <input type="text" id="input-name" value="Gabriel Almeida">
+                        </div>
+                        <div class="form-group">
+                            <label>Curso</label>
+                            <input type="text" value="Engenharia da Computação">
+                        </div>
+                        <div class="form-group">
+                            <label>Bio</label>
+                            <textarea>Desenvolvedor Backend em formação.</textarea>
+                        </div>
+                        <button type="button" class="btn-save" onclick="saveProfile()">Salvar Alterações</button>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+
+        <aside class="sidebar-right col-3">
+            <div class="card">
+                <h4>Online</h4>
+                <ul class="user-list">
+                    <li><span class="status-dot"></span> Lorena Medeiros</li>
+                    <li><span class="status-dot"></span> Bruno Albuquerque</li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => {
+                page.style.display = 'none';
+            });
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.style.display = 'block';
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function saveProfile() {
+            const newName = document.getElementById('input-name').value;
+            document.getElementById('display-name').innerText = newName;
+            alert("Perfil salvo!");
+            showPage('feed-page');
+        }
+    </script>
+</body>
+</html>
