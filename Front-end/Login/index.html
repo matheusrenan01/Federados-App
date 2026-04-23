@@ -10,16 +10,16 @@
 </head>
 <body>
     <main class="container">
-        <form>
+        <form id="login-form">
             <h1>Federados</h1>
             <div class="input-box">
-                <input placeholder = "Email" type="email">
+                <input placeholder="Email" type="email" required>
                 <div class="user-icon">
                     <i class="bx bxs-user"></i>
                 </div>
             </div>
             <div class="input-box">
-                <input placeholder = "Senha" type="password">
+                <input placeholder="Senha" type="password" required>
                 <div class="show-password">
                     <i class="bx bxs-lock-alt"></i>
                 </div>
@@ -39,5 +39,45 @@
             </div>
         </form>
     </main>
+
+    <script>
+        // Pega o formulário
+        const form = document.querySelector('form');
+        
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Evita que a página pisque/recarregue ao clicar
+            
+            // Captura o que o usuário digitou
+            const email = document.querySelector('input[type="email"]').value;
+            const senha = document.querySelector('input[type="password"]').value;
+
+            try {
+                // Envia os dados para a rota do Backend (que está rodando na porta 3000)
+                const resposta = await fetch('http://localhost:3000/api/login', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json' 
+                    },
+                    body: JSON.stringify({ email: email, senha: senha })
+                });
+
+                // Transforma a resposta do backend em JSON
+                const dados = await resposta.json();
+
+                // Verifica se o backend mandou um success: true
+                if (dados.success) {
+                    alert(dados.message); // Exibe: "Login aprovado!"
+                    // Redireciona o usuário para a página principal (Feed)
+                    window.location.href = '../Feed/index.html'; 
+                } else {
+                    alert(dados.message); // Exibe erro (ex: "Email ou senha incorretos")
+                }
+                
+            } catch (erro) {
+                console.error("Erro ao conectar com o backend:", erro);
+                alert("Erro ao conectar com o servidor. O backend (Node.js) está rodando?");
+            }
+        });
+    </script>
 </body>
 </html>
