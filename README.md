@@ -35,9 +35,6 @@ main/
 ├── docs/  # Documentação dos requisitos e planejamentos
 │   └── Requisitos + Planejamento.pdf  
 ```
-
-## Usuários do sistema
-
 O Federados reune:
 
 * **Funcionalidades de rede social**
