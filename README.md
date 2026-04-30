@@ -7,14 +7,14 @@ Projeto acadêmico desenvolvido com o intuito de facilitar a comunicação, gest
 O Federados reune:
 
 * **Funcionalidades de rede social**
-    * Ambientes para publicação de informativos
+    * Ambiente para publicação de informativos
     * Interação pública entre usuários (reações)
     * Mensagens diretas (limitadas a docente-aluno)
 
 * **Gestão de atividades**
     * Integração com o `Google Agenda`
-    * Gerenciamento de exercícios e prazos de entrega
-    * 
+    * Gerenciamento de exercícios
+    * Gerenciamento de datas e prazos de eventos
 
 ## Estrutura do Projeto
 
