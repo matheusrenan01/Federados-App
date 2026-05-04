@@ -13,12 +13,11 @@ body {
 }
 .container{
     width: 420px;
-    background-color: #4b67a1;
-    border-bottom: 1px solid #29487d;
+    background: linear-gradient(to top, #001a4d, #003399);
+    border-bottom: 1px solid #003399;
     color: #fff;
     padding: 30px 40px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-    backdrop-filter: blur(10px);
 }
 .container h1{font-size: 36px;text-align: center;}
 
@@ -39,7 +38,7 @@ body {
     color: #4b67a1;
     padding: 20px 45px 20px 20px;
 }
-.input-box input::placeholder{color: #4b67a1;}
+.input-box input::placeholder{color: #003399;}
 
 .input-box i{
     position: absolute;
@@ -49,8 +48,8 @@ body {
     font-size: 20px;
 }
 
-.show-password{color: #4b67a1;}
-.user-icon{color: #4b67a1;}
+.show-password{color: #003399;}
+.user-icon{color: #003399;}
 
 .remember-forgot{
     display: flex;
@@ -58,7 +57,7 @@ body {
     margin: -15px 0 15px;
 }
 .remember-forgot label{
-    accent-color: #29487d;
+    accent-color: #003399;
     margin-right: 10px;
 }
 .remember-forgot a{
@@ -77,12 +76,12 @@ body {
     border-radius: 40px;
     cursor: pointer;
     font-size: 16px;
-    color: #4b67a1;
+    color: #003399;
     font-weight: 600;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 .login:hover{
-    background-color: #4b67a1;
+    background-color: #003399;
     border: 2px solid rgba(255, 255, 255, .2);
     color: #fff;
     transition: 0.5s;
