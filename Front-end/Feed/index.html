@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Federados - Home</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar navbar-feed">
+        <div class="container navbar-content">
+            <nav class="nav-menu">
+                <a href="index.html">Início</a>
+                <a href="../Perfil/perfil.html">Perfil</a>
+                <a href="#" id="logout-btn">Sair</a>
+            </nav>
+
+            <div class="logo-container">
+                <h1 class="logo">Federados</h1>
+            </div>
+
+            <div class="search-container">
+                <input type="text" placeholder="Buscar..." class="search-input">
+            </div>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        
+        <aside class="sidebar">
+            <a href="../Perfil/perfil.html" class="profile-link-wrapper">
+                <div class="card profile-card">
+                    <div class="profile-pic-container">
+                        <img src="https://via.placeholder.com/80" alt="Foto de Perfil" class="profile-pic" id="side-photo">
+                    </div>
+                    <h2 class="profile-name" id="side-name">Matheus Renan</h2>
+                    <p class="profile-course" id="side-info">Engenharia da Computação | 1º Semestre</p>
+                </div>
+            </a>
+
+            <div class="card projects-card" id="portfolio-card">
+                <h3 class="card-title">📚 Portfólio de Projetos</h3>
+                <ul class="project-list" id="portfolio-list">
+                    <li>
+                        <span class="status-dot green"></span>
+                        <div class="project-info">
+                            <strong id="port-title">TCC I: Federados App</strong>
+                            <small id="port-desc">Em andamento - 80%</small>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <section class="feed">
+            <div class="card post-creator">
+                <div class="post-header">Postar Status</div>
+                <textarea id="post-input" placeholder="No que você está pensando?"></textarea>
+                
+                <div class="post-actions">
+                    <div class="attachments">
+                        <input type="file" id="post-photo-input" accept="image/*" style="display:none">
+                        <input type="file" id="post-file-input" style="display:none">
+                        
+                        <button class="btn-action" onclick="document.getElementById('post-photo-input').click()">📷 Foto</button>
+                        <button class="btn-action" onclick="document.getElementById('post-file-input').click()">📎 Arquivo</button>
+                    </div>
+                    <button id="publish-btn" class="btn-publish">Publicar</button>
+                </div>
+            </div>
+
+            <div id="feed-posts"></div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
