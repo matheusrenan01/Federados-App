@@ -9,6 +9,7 @@ body {
     font-family: 'Montserrat', sans-serif; /* Aplica a nova fonte moderna em todo o site */
     background-color: #f0f2f5; /* Cor de fundo cinza clara (estilo rede social) */
     color: #1c1e21; /* Cor padrão do texto (quase preto) */
+    overflow-x: hidden; /* Proteção extra para o celular não herdar rolagem lateral */
 }
 
 .container { 
@@ -30,32 +31,52 @@ body {
 .navbar-content { 
     display: flex; 
     align-items: center; 
-    justify-content: space-between; /* Distribui Menu, Logo e Busca igualmente */
+    justify-content: space-between; /* Distribui Menu, Logo e Busca igualmente nas pontas */
+    gap: 20px;
 }
 
-/* Define que cada uma das 3 partes da barra ocupe o mesmo espaço */
-.nav-menu, .logo-container, .search-container { 
-    flex: 1; 
-    display: flex; 
-    align-items: center; 
+/* Ajuste fino dos 3 blocos para ficarem perfeitamente espaçados no computador */
+.logo-container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start; /* Logo colada na esquerda */
 }
 
-.nav-menu { justify-content: flex-start; gap: 15px; } /* Alinha links à esquerda */
-.nav-menu a { color: white; text-decoration: none; font-weight: 600; }
+.logo { 
+    font-size: 24px; 
+    font-weight: 700; 
+    white-space: nowrap;
+}
 
-.logo-container { justify-content: center; } /* Mantém o logo no meio exato */
-.logo { font-size: 24px; font-weight: 700; }
+.search-container {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Busca perfeitamente no centro */
+}
 
-.search-container { justify-content: flex-end; } /* Alinha a busca à direita */
 .search-input { 
-    width: 220px; 
+    width: 100%;
+    max-width: 220px; 
     padding: 8px 15px; 
     border-radius: 20px; 
     border: none; 
     outline: none; 
     background: white; 
-    margin-right: -10px; /* Pequeno ajuste para colar no canto direito */
 }
+
+.nav-menu {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end; /* Links colados na direita */
+    gap: 25px; /* Espaço maior entre os links como você pediu */
+}
+
+.nav-menu a { 
+    color: white; 
+    text-decoration: none; 
+    font-weight: 600; 
+}
+
 
 /* --- 3. BARRA LATERAL (SIDEBAR) --- */
 .profile-link-wrapper { 
@@ -92,11 +113,23 @@ body {
     object-fit: cover; /* Faz a imagem preencher o círculo sem esticar */
 }
 
+
 /* --- 4. ÁREA DE POSTAGEM (POST CREATOR) --- */
 .post-header { 
     font-weight: 700; /* Texto "Postar Status" em negrito */
     font-size: 16px; 
     margin-bottom: 10px; 
+}
+
+.post-creator textarea { 
+    width: 100%; 
+    height: 80px; 
+    border: none; 
+    padding: 10px; 
+    resize: none; /* Impede o usuário de puxar e deformar a caixa de texto */
+    outline: none; 
+    font-size: 16px; 
+    font-family: inherit; /* Garante que o texto digitado também seja Montserrat */
 }
 
 .post-actions { 
@@ -132,6 +165,7 @@ body {
     cursor: pointer; 
 }
 
+
 /* --- 5. ESTRUTURA DO LAYOUT --- */
 .main-content { 
     display: grid; 
@@ -148,13 +182,115 @@ body {
     margin-bottom: 20px; 
 }
 
-.post-creator textarea { 
-    width: 100%; 
-    height: 80px; 
-    border: none; 
-    padding: 10px; 
-    resize: none; /* Impede o usuário de puxar e deformar a caixa de texto */
-    outline: none; 
-    font-size: 16px; 
-    font-family: inherit; /* Garante que o texto digitado também seja Montserrat */
+
+/* ==========================================================================
+   6. REGRAS DE RESPONSIVIDADE ADICIONADAS (MEDIA QUERIES)
+   ========================================================================== */
+
+/* --- COMPORTAMENTO PARA TABLETS/CELULARES --- */
+@media (max-width: 850px) {
+    .main-content {
+        grid-template-columns: 1fr; /* Em telas menores, o feed ocupa toda a largura e a sidebar desaparece */
+    }       
+    .sidebar { 
+        display: none; /* Esconde a barra lateral em telas menores para focar no feed */
+    }       
+    .post-header { 
+        font-size: 14px; /* Reduz o tamanho do texto "Postar Status" para caber melhor no mobile */
+    }   
+
+    .post-creator textarea { 
+        height: 60px; /* Reduz a altura da caixa de texto para não ocupar tanto espaço no celular */
+    }   
+
+
+    .post-actions { 
+        flex-direction: column; /* Empilha os botões de ação verticalmente no celular */
+        align-items: flex-start; /* Alinha os botões à esquerda para facilitar o toque */
+        gap: 10px; /* Espaço entre os botões quando empilhados */
+    }   
+    .btn-publish { 
+        width: 100%; /* Faz o botão de publicar ocupar toda a largura disponível no celular */
+        text-align: center; /* Centraliza o texto do botão */
+    }
+    .btn-action { 
+        width: 100%; /* Faz os botões de ação ocuparem toda a largura disponível no celular */
+        text-align: center; /* Centraliza o texto dos botões */
+    }
+
+}
+
+/* --- MENU KEBAB DE AÇÕES --- */
+.post-header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.post-menu-container { position: relative; }
+
+.post-menu-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.25rem;
+    color: #606770;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 50%;
+}
+
+.post-menu-btn:hover { background-color: #e4e6eb; }
+
+.post-menu-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    background: white;
+    min-width: 120px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    z-index: 100;
+    overflow: hidden;
+    border: 1px solid #dddfe2;
+}
+
+.post-menu-dropdown.show { display: block; }
+
+.post-menu-dropdown button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.post-menu-dropdown button:hover { background: #f0f0f0; }
+.text-danger { color: #d32f2f; }
+
+/* Ajuste do container do portfólio */
+#portfolio-card {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Garante que o texto e imagem dentro do portfólio não quebrem o card */
+#portfolio-card div {
+    width: 100%;
+    word-wrap: break-word;
+}
+
+/* Ajuste fino para a imagem do portfólio */
+#portfolio-card img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 8px;
 }

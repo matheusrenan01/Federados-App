@@ -1,12 +1,50 @@
-@media (max-width: 500px){
-    .container h1{font-size: 28px;text-align: center;}
+/* --- RESPONSIVIDADE DA TELA DE LOGIN (responsive.css) --- */
 
-    .input-box input{
-        width: 89%;
-        padding: 20px 20px 20px 20px;
+@media (max-width: 768px) {
+    body {
+        justify-content: center; /* No tablet, centraliza o card no meio da tela */
+        background-size: cover;
+        padding: 20px;
     }
 
-    .container{
-        padding: 200px 30px 1px 30px;
+    .container {
+        width: 100%;
+        max-width: 400px;
+        min-height: auto; /* Deixa de ser tela cheia vertical para virar um card elegante */
+        border-radius: 12px; /* Bordas arredondadas para dar um visual moderno no mobile */
+        border-left: none;
+        padding: 40px 30px;
+    }
+}
+
+@media (max-width: 500px) {
+    /* Centraliza o título da tela de login e reduz o tamanho para não quebrar linha */
+    .container h1 {
+        font-size: 30px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    /* Ajusta os paddings internos para telas muito pequenas */
+    .container {
+        padding: 30px 20px;
+    }
+
+    /* Melhora o comportamento dos inputs nos celulares */
+    .input-box input {
+        width: 100%; /* Faz o input ocupar 100% da caixinha elástica */
+        padding: 0 45px 0 20px; /* Mantém o texto longe do ícone na direita */
+    }
+    
+    /* Organiza o "Lembrar senha" e "Esqueceu a senha" um embaixo do outro para ficar fácil de tocar */
+    .remember-forgot {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+        margin: -10px 0 20px;
+    }
+    
+    .register-link {
+        font-size: 13px;
     }
 }
