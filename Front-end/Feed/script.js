@@ -15,17 +15,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const pFoto = localStorage.getItem('projetoFoto');
     const areaPortfolio = document.getElementById('portfolio-card');
 
-    if (areaPortfolio) {
-        if (pNome) {
-            areaPortfolio.innerHTML = `
-                <h3 class="card-title" style="margin-bottom: 10px;">📚 Portfólio de Projetos</h3>
-                <div style="text-align: left; width: 100%;">
-                    <strong style="color: #1c1e21; display: block;">${pNome}</strong>
-                    <p style="font-size:12px; color:#666; margin: 5px 0;">${pDesc}</p>
-                    ${pFoto ? `<img src="${pFoto}" style="width:100%; border-radius:8px; display: block; margin-top: 5px;">` : ''}
-                </div>
-            `;
-        }
+    if (areaPortfolio && pNome) {
+        areaPortfolio.innerHTML = `
+            <h3 class="card-title" style="margin-bottom: 10px;">📚 Portfólio de Projetos</h3>
+            <div style="text-align: left; width: 100%;">
+                <strong style="color: #1c1e21; display: block;">${pNome}</strong>
+                <p style="font-size:12px; color:#666; margin: 5px 0;">${pDesc}</p>
+                ${pFoto ? `<img src="${pFoto}" style="width:100%; border-radius:8px; display: block; margin-top: 5px;">` : ''}
+            </div>
+        `;
     }
 
     // --- 3. LÓGICA DO FEED ---
@@ -75,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
         posts.forEach((post, index) => renderizarPost(post, index));
     }
 
-    // --- CONTROLE DO MENU E AÇÕES ---
+    // --- 4. CONTROLE DO MENU E AÇÕES ---
     window.toggleMenu = (btn) => {
         const dropdown = btn.nextElementSibling;
         document.querySelectorAll('.post-menu-dropdown').forEach(d => { if (d !== dropdown) d.style.display = 'none'; });
@@ -93,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.editarPost = (index) => { alert("Função de edição em breve!"); };
 
-    // --- PUBLICAÇÃO ---
+    // --- 5. PUBLICAÇÃO ---
     if (publishBtn) {
         publishBtn.addEventListener('click', async function() {
             const texto = postInput.value;
@@ -114,6 +112,26 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('postsFederados', JSON.stringify(posts));
             carregarPosts();
             postInput.value = "";
+        });
+    }
+
+    // --- 6. FUNCIONALIDADE DO BOTÃO SAIR (LOGOUT) ---
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Impede o link de recarregar a tela
+            
+            // Abre o pop-up de confirmação
+            if (confirm("Deseja realmente sair do Federados?")) {
+                // Remove a sessão
+                localStorage.removeItem('usuarioLogado');
+                
+                // Exibe o aviso de saída segura
+                alert("Você saiu do sistema de forma segura.");
+                
+                // Redireciona de: Front-end/Feed/index.html -> Front-end/Login/index.html
+                window.location.href = "../Login/index.html"; 
+            }
         });
     }
 
