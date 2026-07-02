@@ -195,3 +195,22 @@ body {
     background: white;
     color: #333;
 }
+
+.validation-list p.invalid {
+    color: #ff4d4d;
+}
+
+
+.validation-list p.invalid::before {
+    content: "✖ "; 
+    font-weight: bold;
+}
+
+.validation-list p.valid {
+    color: #2ecc71; 
+
+
+.validation-list p.valid::before {
+    content: "✔ "; 
+    font-weight: bold;
+}

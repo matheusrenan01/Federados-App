@@ -1,6 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // --- LÓGICA PARA FORMATAR O NOME (Apenas os 2 primeiros nomes) ---
+    const nomeCompleto = localStorage.getItem('usuarioNome') || "Matheus Renan";
+    const partesDoNome = nomeCompleto.trim().split(' ');
+    
+    let nomeFormatado = partesDoNome[0]; // Pega o primeiro nome
+    if (partesDoNome.length > 1) {
+        nomeFormatado += ' ' + partesDoNome[1]; // Adiciona o segundo, se existir
+    }
+
     // --- 1. CARREGAR DADOS DO PERFIL (LATERAL) ---
-    const nome = localStorage.getItem('usuarioNome') || "Matheus Renan";
     const curso = localStorage.getItem('usuarioCurso') || "Engenharia da Computação";
     const semestre = localStorage.getItem('usuarioSemestre') || "1º Semestre";
     const foto = localStorage.getItem('usuarioFoto');
@@ -9,7 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const infoCard = document.getElementById('side-info');
     const fotoCard = document.getElementById('side-photo');
 
-    if(nomeCard) nomeCard.innerText = nome;
+    // Usa a variável nomeFormatado aqui para exibir na lateral
+    if(nomeCard) nomeCard.innerText = nomeFormatado;
     if(infoCard) infoCard.innerText = `${curso} | ${semestre}`;
     if(fotoCard && foto) fotoCard.src = foto;
 
@@ -91,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             const novoPost = {
-                autor: nome,
+                autor: nomeFormatado, // Usa a variável nomeFormatado como autor do novo post!
                 texto: texto,
                 foto: fotoBase64,
                 arquivoConteudo: arquivoBase64,
