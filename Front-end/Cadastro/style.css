@@ -107,11 +107,27 @@ body {
     position: relative;
 }
 
-.validation-list p.invalid { color: #ffdada; }
-.validation-list p.invalid::before { content: "✕"; position: absolute; left: 0; font-weight: bold; }
+.validation-list p.invalid { 
+    color: #ff4d4d; 
+}
 
-.validation-list p.valid { color: #afffab; }
-.validation-list p.valid::before { content: "✓"; position: absolute; left: 0; font-weight: bold; }
+.validation-list p.invalid::before { 
+    content: "✖ "; 
+    position: absolute; 
+    left: 0; 
+    font-weight: bold; 
+}
+
+.validation-list p.valid { 
+    color: #2ecc71; 
+} /* <-- A CHAVE QUE FALTAVA ESTÁ AQUI AGORA! */
+
+.validation-list p.valid::before { 
+    content: "✔ "; 
+    position: absolute; 
+    left: 0; 
+    font-weight: bold; 
+}
 
 .btn-next {
     width: 100%;
@@ -136,6 +152,7 @@ body {
     background-image: radial-gradient(rgba(255,255,255,0.3) 15%, transparent 15%);
     background-size: 10px 10px;
 }
+
 /* Estilo para os textos informativos das telas de recuperação */
 .info-text {
     font-size: 14px;
@@ -196,21 +213,50 @@ body {
     color: #333;
 }
 
-.validation-list p.invalid {
-    color: #ff4d4d;
+/* --- ESTILOS DA CAIXINHA DE INFORMAÇÃO (TOOLTIP) --- */
+
+/* Prepara o container para segurar a caixinha no lugar certo */
+.tooltip-container {
+    position: relative;
 }
 
-
-.validation-list p.invalid::before {
-    content: "✖ "; 
-    font-weight: bold;
+/* Visual da caixinha (escondida por padrão) */
+.tooltip-text {
+    visibility: hidden;
+    opacity: 0;
+    background-color: #1c1e21; 
+    color: #ffffff; /* Cor branca para o texto */
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: normal;
+    
+    /* Posicionamento acima do input */
+    position: absolute;
+    z-index: 10;
+    bottom: 100%; /* Joga pra cima do input */
+    left: 0;
+    margin-bottom: 8px; /* Dá um espacinho entre a caixa e o input */
+    width: 250px; /* Largura da caixinha */
+    
+    /* Efeito suave ao aparecer */
+    transition: opacity 0.3s ease-in-out;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.validation-list p.valid {
-    color: #2ecc71; 
+/* Criando a "setinha" do balão de fala virada para baixo */
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* Fica bem na base da caixa */
+    left: 20px; /* Posição da seta da esquerda pra direita */
+    border-width: 6px;
+    border-style: solid;
+    border-color: #1c1e21 transparent transparent transparent;
+}
 
-
-.validation-list p.valid::before {
-    content: "✔ "; 
-    font-weight: bold;
+.tooltip-container input:focus + .tooltip-text {
+    visibility: visible;
+    opacity: 1;
 }

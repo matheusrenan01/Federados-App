@@ -9,7 +9,6 @@
 <body>
 
     <div class="main-container">
-        <!-- Alterei o ID do form para form-cadastro para bater com o JavaScript -->
         <form id="form-cadastro">
             <h1 class="federados-title">Federados</h1>
             <h2 class="section-title">Dados cadastrais</h2>
@@ -17,16 +16,14 @@
 
             <div class="input-group">
                 <label>Email institucional*</label>
-                <!-- Adicionado id="email" -->
                 <input type="email" id="email" placeholder="ex: nome@ufrpe.br" required>
             </div>
 
-            <div class="input-group">
+            <div class="input-group tooltip-container">
                 <label>Nome completo *</label>
-                <!-- Adicionado id="nome" -->
                 <input type="text" id="nome" required>
+                <span class="tooltip-text">Atenção: Seus dois primeiros nomes serão usados como seu nome de usuário no Feed!</span>
             </div>
-
             <div class="input-row">
                 <div class="input-group flex-2">
                     <label>Curso*</label>
@@ -46,7 +43,6 @@
             <div class="input-group">
                 <label>Senha*</label>
                 <div class="password-wrapper">
-                    <!-- Alterado id para "senha" e a função onclick -->
                     <input type="password" id="senha" placeholder="ex: Federados1234" required>
                     <span class="toggle-password" onclick="togglePass('senha')">👁️</span>
                 </div>
