@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Federados - Recuperação de Senha</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="main-container">
+
+        <div id="step-1">
+            <h1 class="federados-title">Federados</h1>
+            <h2 class="section-title">Recuperação de senha</h2>
+            <p class="obligatory-info">Insira o email cadastrado</p>
+
+            <div class="input-group">
+                <input type="email" placeholder="ex: nome@ufrpe.br" id="email-input">
+            </div>
+
+            <p class="info-text">
+                Um código de 6 dígitos será gerado e enviado para o email cadastrado e inserido anteriormente.<br><br>
+                O código valerá por 5 minutos.
+            </p>
+
+            <div class="btn-group">
+                <button type="button" class="btn-outline" onclick="window.location.href='cadastro.html'">Voltar</button>
+                <button type="button" class="btn-pill" id="btn-step-1" onclick="nextStep()">Avançar</button>
+            </div>
+        </div>
+
+        <div id="step-2" style="display: none;">
+            <p id="timer" style="color: white; font-weight: bold; text-align: center; margin: 10px 0;"></p>
+            <h1 class="federados-title">Federados</h1>
+            <h2 class="section-title">Recuperação de senha</h2>
+            <p class="obligatory-info">Insira o código de 6 dígitos.</p>
+
+            <div class="code-container">
+                <input type="text" maxlength="1" class="code-input">
+                <input type="text" maxlength="1" class="code-input">
+                <input type="text" maxlength="1" class="code-input">
+                <input type="text" maxlength="1" class="code-input">
+                <input type="text" maxlength="1" class="code-input">
+                <input type="text" maxlength="1" class="code-input">
+            </div>
+
+            <p class="info-text">
+                O código de 6 dígitos foi enviado ao email inserido anteriormente, verifique-o.
+            </p>
+
+            <div class="btn-group">
+                <button type="button" class="btn-outline" onclick="prevStep()">Voltar</button>
+                <button type="button" class="btn-pill" id="btn-step-2" onclick="verificarCodigo()">Avançar</button>
+            </div>
+        </div>
+
+        <div id="step-3" style="display: none;">
+            <h1 class="federados-title">Federados</h1>
+            <h2 class="section-title">Recuperação de senha</h2>
+            <p class="obligatory-info">Escolha sua nova senha</p>
+
+            <div class="input-group">
+                <label>Nova senha *</label>
+                <div class="password-wrapper">
+                    <input type="password" id="nova-senha" placeholder="ex: Federados1234">
+                    <span class="toggle-password" onclick="togglePass('nova-senha')">👁️</span>
+                </div>
+            </div>
+
+            <div class="validation-list">
+                <p id="rule-length" class="invalid">Sua senha precisa ter pelo menos 8 dígitos.</p>
+                <p id="rule-upper" class="invalid">Sua senha precisa ter pelo menos uma letra maiúscula.</p>
+                <p id="rule-number" class="invalid">Sua senha precisa ter pelo menos um número.</p>
+            </div>
+
+            <div class="input-group">
+                <label>Repetir nova senha *</label>
+                <div class="password-wrapper">
+                    <input type="password" id="confirmar-nova-senha" placeholder="ex: Federados1234">
+                    <span class="toggle-password" onclick="togglePass('confirmar-nova-senha')">👁️</span>
+                </div>
+            </div>
+
+            <div class="validation-list">
+                <p id="rule-match" class="invalid">As senhas precisam ser iguais.</p>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn-outline" onclick="prevStepFrom3()">Voltar</button>
+                <button type="button" class="btn-pill" id="btn-step-3" onclick="redefinirSenha()">Redefinir senha</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="dots-pattern"></div>
+
+    <script src="script-recuperacao.js"></script>
+</body>
+</html>
