@@ -117,38 +117,42 @@ const ruleUpper = document.getElementById('rule-upper');
 const ruleNumber = document.getElementById('rule-number');
 const ruleMatch = document.getElementById('rule-match');
 
-novaSenhaInput.addEventListener('input', () => {
-    const valorSenha = novaSenhaInput.value;
+if (novaSenhaInput && confirmarNovaSenhaInput) {
 
-    if (valorSenha.length >= 8) {
-        ruleLength.classList.remove('invalid');
-        ruleLength.classList.add('valid');
-    } else {
-        ruleLength.classList.remove('valid');
-        ruleLength.classList.add('invalid');
-    }
+    novaSenhaInput.addEventListener('input', () => {
 
-    if (/[A-Z]/.test(valorSenha)) {
-        ruleUpper.classList.remove('invalid');
-        ruleUpper.classList.add('valid');
-    } else {
-        ruleUpper.classList.remove('valid');
-        ruleUpper.classList.add('invalid');
-    }
+        const valorSenha = novaSenhaInput.value;
 
-    if (/[0-9]/.test(valorSenha)) {
-        ruleNumber.classList.remove('invalid');
-        ruleNumber.classList.add('valid');
-    } else {
-        ruleNumber.classList.remove('valid');
-        ruleNumber.classList.add('invalid');
-    }
+        if (valorSenha.length >= 8) {
+            ruleLength.classList.remove('invalid');
+            ruleLength.classList.add('valid');
+        } else {
+            ruleLength.classList.remove('valid');
+            ruleLength.classList.add('invalid');
+        }
 
-    validarIgualdade();
-});
+        if (/[A-Z]/.test(valorSenha)) {
+            ruleUpper.classList.remove('invalid');
+            ruleUpper.classList.add('valid');
+        } else {
+            ruleUpper.classList.remove('valid');
+            ruleUpper.classList.add('invalid');
+        }
 
-confirmarNovaSenhaInput.addEventListener('input', validarIgualdade);
+        if (/[0-9]/.test(valorSenha)) {
+            ruleNumber.classList.remove('invalid');
+            ruleNumber.classList.add('valid');
+        } else {
+            ruleNumber.classList.remove('valid');
+            ruleNumber.classList.add('invalid');
+        }
 
+        validarIgualdade();
+
+    });
+
+    confirmarNovaSenhaInput.addEventListener('input', validarIgualdade);
+}
 function validarIgualdade() {
     const valorSenha = novaSenhaInput.value;
     const valorConfirmar = confirmarNovaSenhaInput.value;

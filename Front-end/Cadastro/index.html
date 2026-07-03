@@ -10,9 +10,12 @@
 
     <div class="main-container">
         <form id="form-cadastro">
+
             <h1 class="federados-title">Federados</h1>
             <h2 class="section-title">Dados cadastrais</h2>
-            <p class="obligatory-info">Os dados marcados com * devem ser preenchidos obrigatoriamente</p>
+            <p class="obligatory-info">
+                Os dados marcados com * devem ser preenchidos obrigatoriamente
+            </p>
 
             <div class="input-group">
                 <label>Email institucional*</label>
@@ -22,13 +25,17 @@
             <div class="input-group tooltip-container">
                 <label>Nome completo *</label>
                 <input type="text" id="nome" required>
-                <span class="tooltip-text">Atenção: Seus dois primeiros nomes serão usados como seu nome de usuário no Feed!</span>
+                <span class="tooltip-text">
+                    Atenção: Seus dois primeiros nomes serão usados como seu nome de usuário no Feed!
+                </span>
             </div>
+
             <div class="input-row">
                 <div class="input-group flex-2">
                     <label>Curso*</label>
-                    <input type="text" placeholder="ex: Engenharia da computação" required>
+                    <input type="text" placeholder="ex: Engenharia da Computação" required>
                 </div>
+
                 <div class="input-group flex-1">
                     <label>Período *</label>
                     <input type="number" value="1" min="1" max="12" required>
@@ -42,6 +49,7 @@
 
             <div class="input-group">
                 <label>Senha*</label>
+
                 <div class="password-wrapper">
                     <input type="password" id="senha" placeholder="ex: Federados1234" required>
                     <span class="toggle-password" onclick="togglePass('senha')">👁️</span>
@@ -56,6 +64,7 @@
 
             <div class="input-group">
                 <label>Repetir senha *</label>
+
                 <div class="password-wrapper">
                     <input type="password" id="confirm_password" required>
                     <span class="toggle-password" onclick="togglePass('confirm_password')">👁️</span>
@@ -66,12 +75,27 @@
                 <p id="rule-match" class="invalid">As senhas precisam ser iguais.</p>
             </div>
 
-            <button type="submit" class="btn-next">Cadastrar</button>
+            <div class="btn-group">
+                <button
+                    type="button"
+                    class="btn-outline"
+                    onclick="window.location.href='../Login/index.html'">
+                    Voltar
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn-next">
+                    Cadastrar
+                </button>
+            </div>
+
         </form>
     </div>
 
     <div class="dots-pattern"></div>
 
     <script src="script-cadastro.js"></script>
+
 </body>
 </html>
