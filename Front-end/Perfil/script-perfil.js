@@ -1,128 +1,122 @@
 document.addEventListener('DOMContentLoaded', () => {
-
     const btnSave = document.getElementById('btn-save-all');
-
-    // ==========================
-    // Carregar dados salvos
-    // ==========================
-    function carregarDados() {
-
-        const nome = localStorage.getItem('usuarioNome') || "Matheus Renan";
-        const curso = localStorage.getItem('usuarioCurso') || "Curso";
-        const semestre = localStorage.getItem('usuarioSemestre') || "1º Semestre";
-        const foto = localStorage.getItem('usuarioFoto');
-
-        document.getElementById('input-name').value = nome;
-        document.getElementById('input-course').value = curso;
-        document.getElementById('input-semester').value = semestre;
-
-        document.getElementById('input-project-name').value =
-            localStorage.getItem('projetoNome') || "";
-
-        document.getElementById('input-project-desc').value =
-            localStorage.getItem('projetoDesc') || "";
-
-        document.getElementById('display-name').innerText = nome;
-        document.getElementById('display-course').innerText = curso;
-        document.getElementById('display-semester').innerText = semestre;
-
-        if (foto) {
-            document.getElementById('display-pic').src = foto;
-        }
-
+    const logoutBtn = document.getElementById('logout-btn');
+    
+    // --- PROTOCOLO DE SEGURANÇA (CORREÇÃO BUG 5) ---
+    // Verifica se o usuário realmente está logado ao carregar a página
+    const usuarioLogadoEmail = localStorage.getItem('usuarioLogado'); // Ex: "aluno@institucional.com"
+    
+    if (!usuarioLogadoEmail) {
+        alert("Sua sessão expirou ou você não está logado. Redirecionando...");
+        window.location.href = "../Login/index.html";
+        return; // Para a execução do script
     }
 
-    carregarDados();
-
-    // ==========================
-    // Salvar alterações
-    // ==========================
-    btnSave.addEventListener('click', () => {
-
-        const novoNome = document.getElementById('input-name').value;
-        const novoCurso = document.getElementById('input-course').value;
-        const novoSemestre = document.getElementById('input-semester').value;
-
-        localStorage.setItem('usuarioNome', novoNome);
-        localStorage.setItem('usuarioCurso', novoCurso);
-        localStorage.setItem('usuarioSemestre', novoSemestre);
-
-        localStorage.setItem(
-            'projetoNome',
-            document.getElementById('input-project-name').value
-        );
-
-        localStorage.setItem(
-            'projetoDesc',
-            document.getElementById('input-project-desc').value
-        );
-
-        document.getElementById('display-name').innerText = novoNome;
-        document.getElementById('display-course').innerText = novoCurso;
-        document.getElementById('display-semester').innerText = novoSemestre;
-
-        // Foto de perfil
-        const fotoFile = document.getElementById('input-file').files[0];
-
-        if (fotoFile) {
-
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-
-                localStorage.setItem('usuarioFoto', e.target.result);
-                document.getElementById('display-pic').src = e.target.result;
-
-            };
-
-            reader.readAsDataURL(fotoFile);
-
-        }
-
-        // Foto do projeto
-        const projFile = document.getElementById('input-project-file').files[0];
-
-        if (projFile) {
-
-            const readerP = new FileReader();
-
-            readerP.onload = function (e) {
-
-                localStorage.setItem('projetoFoto', e.target.result);
-
-            };
-
-            readerP.readAsDataURL(projFile);
-
-        }
-
-        alert("Alterações salvas com sucesso!");
-
+    // Função utilitária para converter arquivo em Base64
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
     });
 
-    // ==========================
-    // Logout
-    // ==========================
-    const btnSair = document.getElementById("btn-sair");
-    
-    if (btnSair) {
+    // --- 1. CARREGAR DADOS SALVOS INDIVIDUAIS (CORREÇÃO BUGS 1, 2, 3 e 4) ---
+    function carregarDados() {
+        // Criamos chaves únicas baseadas no e-mail do usuário logado
+        const nome = localStorage.getItem(`nome_${usuarioLogadoEmail}`) || "Usuário Federados";
+        const curso = localStorage.getItem(`curso_${usuarioLogadoEmail}`) || "Engenharia da Computação";
+        const semestre = localStorage.getItem(`semestre_${usuarioLogadoEmail}`) || "1º Semestre";
+        const bio = localStorage.getItem(`bio_${usuarioLogadoEmail}`) || "Sua biografia aparecerá aqui...";
+        const foto = localStorage.getItem(`foto_${usuarioLogadoEmail}`) || "https://via.placeholder.com/120";
 
-        btnSair.addEventListener("click", function (e) {
+        // Dados do Portfólio (Resolução do Bug 1 - Placeholder)
+        const projNome = localStorage.getItem(`projetoNome_${usuarioLogadoEmail}`) || "";
+        const projDesc = localStorage.getItem(`projetoDesc_${usuarioLogadoEmail}`) || "";
 
-            e.preventDefault();
+        // Preenche os campos de input do formulário
+        if (document.getElementById('input-name')) document.getElementById('input-name').value = nome === "Usuário Federados" ? "" : nome;
+        if (document.getElementById('input-course')) document.getElementById('input-course').value = curso;
+        if (document.getElementById('input-semester')) document.getElementById('input-semester').value = semestre;
+        if (document.getElementById('input-bio')) document.getElementById('input-bio').value = bio === "Sua biografia aparecerá aqui..." ? "" : bio;
+        
+        if (document.getElementById('input-project-name')) document.getElementById('input-project-name').value = projNome;
+        if (document.getElementById('input-project-desc')) document.getElementById('input-project-desc').value = projDesc;
 
-            if (confirm("Deseja sair do sistema?")) {
-
-                // Remove apenas o token, caso exista
-                localStorage.removeItem("token");
-
-                // Redireciona para o login
-                window.location.href = "../Login/index.html";
-
-            }
-
-        });
-
+        // Updates visuais na interface (Header do perfil)
+        if (document.getElementById('display-name')) document.getElementById('display-name').innerText = nome;
+        if (document.getElementById('display-course')) document.getElementById('display-course').innerText = curso;
+        if (document.getElementById('display-semester')) document.getElementById('display-semester').innerText = semestre;
+        if (document.getElementById('display-bio')) document.getElementById('display-bio').innerText = bio;
+        if (document.getElementById('display-pic')) document.getElementById('display-pic').src = foto;
     }
 
+    // Inicializa carregando os dados protegidos
+    carregarDados();
+
+    // --- 2. SALVAR ALTERAÇÕES EXCLUSIVAS DO USUÁRIO ---
+    if (btnSave) {
+        btnSave.addEventListener('click', async () => {
+            const novoNome = document.getElementById('input-name').value.trim();
+            const novoCurso = document.getElementById('input-course').value.trim();
+            const novoSemestre = document.getElementById('input-semester').value;
+            const novaBio = document.getElementById('input-bio').value.trim();
+
+            if (!novoNome || !novoCurso) {
+                return alert("Por favor, preencha os campos de Nome e Curso!");
+            }
+
+            const fotoFile = document.getElementById('input-file').files[0];
+            const projFile = document.getElementById('input-project-file').files[0];
+
+            try {
+                // Se enviou foto de perfil, salva na chave exclusiva deste usuário (BUG 4 CORRIGIDO)
+                if (fotoFile) {
+                    const fotoBase64 = await toBase64(fotoFile);
+                    localStorage.setItem(`foto_${usuarioLogadoEmail}`, fotoBase64);
+                    if (document.getElementById('display-pic')) {
+                        document.getElementById('display-pic').src = fotoBase64;
+                    }
+                }
+
+                if (projFile) {
+                    const projBase64 = await toBase64(projFile);
+                    localStorage.setItem(`projetoFoto_${usuarioLogadoEmail}`, projBase64);
+                }
+
+                // Salvando com escopo de Usuário utilizando o e-mail como ID (BUG 2 CORRIGIDO)
+                localStorage.setItem(`nome_${usuarioLogadoEmail}`, novoNome);
+                localStorage.setItem(`curso_${usuarioLogadoEmail}`, novoCurso);
+                localStorage.setItem(`semestre_${usuarioLogadoEmail}`, novoSemestre);
+                localStorage.setItem(`bio_${usuarioLogadoEmail}`, novaBio || "Sua biografia aparecerá aqui...");
+                
+                // Salvando dados do Portfólio (BUG 1 CORRIGIDO)
+                localStorage.setItem(`projetoNome_${usuarioLogadoEmail}`, document.getElementById('input-project-name').value.trim());
+                localStorage.setItem(`projetoDesc_${usuarioLogadoEmail}`, document.getElementById('input-project-desc').value.trim());
+
+                // Atualizando elementos visuais em tempo real
+                if (document.getElementById('display-name')) document.getElementById('display-name').innerText = novoNome;
+                if (document.getElementById('display-course')) document.getElementById('display-course').innerText = novoCurso;
+                if (document.getElementById('display-semester')) document.getElementById('display-semester').innerText = novoSemestre;
+                if (document.getElementById('display-bio')) document.getElementById('display-bio').innerText = novaBio || "Sua biografia aparecerá aqui...";
+
+                alert("Todas as alterações foram salvas com sucesso!");
+
+            } catch (error) {
+                console.error("Erro ao salvar dados do perfil:", error);
+                alert("Erro ao processar as imagens.");
+            }
+        });
+    }
+
+    // --- 3. LOGOUT ENCERRA A SESSÃO NO CLIENTE (CORREÇÃO BUG 5) ---
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm("Deseja realmente sair do Federados?")) {
+                localStorage.removeItem('usuarioLogado'); // Destrói o token de sessão
+                alert("Você saiu do sistema de forma segura.");
+                window.location.href = "../Login/index.html"; 
+            }
+        });
+    }
 });

@@ -1,134 +1,118 @@
-const formCadastro = document.getElementById('form-cadastro');
-const senhaInput = document.getElementById('senha');
-const confirmPasswordInput = document.getElementById('confirm_password');
+document.addEventListener('DOMContentLoaded', function() {
+    const formCadastro = document.getElementById('form-cadastro');
+    const tipoUsuario = document.getElementById('tipo-usuario');
+    const btnVoltar = document.getElementById('btn-voltar');
 
-// Elementos de texto de validação do HTML
-const ruleLength = document.getElementById('rule-length');
-const ruleUpper = document.getElementById('rule-upper');
-const ruleNumber = document.getElementById('rule-number');
-const ruleMatch = document.getElementById('rule-match');
+    // Mapeamento dos blocos de campos
+    const rowDiscente = document.getElementById('row-discente');
+    const rowDocente = document.getElementById('row-docente');
 
-//  VALIDAÇÃO EM TEMPO REAL DA SENHA 
-senhaInput.addEventListener('input', () => {
-    const valorSenha = senhaInput.value;
+    // Elementos de entrada para controle dinâmico
+    const inputCurso = document.getElementById('curso');
+    const inputPeriodo = document.getElementById('periodo');
+    const inputDepartamento = document.getElementById('departamento');
+    const inputSiape = document.getElementById('siape');
 
-    // 1. Verifica se tem pelo menos 8 dígitos
-    if (valorSenha.length >= 8) {
-        ruleLength.classList.remove('invalid');
-        ruleLength.classList.add('valid');
-    } else {
-        ruleLength.classList.remove('valid');
-        ruleLength.classList.add('invalid');
-    }
+    // --- LÓGICA DE ALTERNÂNCIA DE ABAS (DISCENTE / DOCENTE) ---
+    if (tipoUsuario) {
+        tipoUsuario.addEventListener('change', function() {
+            if (this.value === 'docente') {
+                // Exibe bloco docente e esconde discente
+                rowDiscente.style.display = 'none';
+                rowDocente.style.display = 'flex';
 
-    // 2. Verifica se tem pelo menos uma letra maiúscula
-    if (/[A-Z]/.test(valorSenha)) {
-        ruleUpper.classList.remove('invalid');
-        ruleUpper.classList.add('valid');
-    } else {
-        ruleUpper.classList.remove('valid');
-        ruleUpper.classList.add('invalid');
-    }
+                // Altera obrigatoriedade dos campos
+                inputCurso.required = false;
+                inputPeriodo.required = false;
+                inputDepartamento.required = true;
+                inputSiape.required = true;
+            } else {
+                // Exibe bloco discente e esconde docente
+                rowDiscente.style.display = 'flex';
+                rowDocente.style.display = 'none';
 
-    // 3. Verifica se tem pelo menos um número
-    if (/[0-9]/.test(valorSenha)) {
-        ruleNumber.classList.remove('invalid');
-        ruleNumber.classList.add('valid');
-    } else {
-        ruleNumber.classList.remove('valid');
-        ruleNumber.classList.add('invalid');
-    }
-    
-    // Atualiza a validação de igualdade caso o usuário mexa na primeira senha
-    validarIgualdade();
-});
-
-// VALIDAÇÃO EM TEMPO REAL DA REPETIÇÃO 
-confirmPasswordInput.addEventListener('input', validarIgualdade);
-
-function validarIgualdade() {
-    const valorSenha = senhaInput.value;
-    const valorConfirmar = confirmPasswordInput.value;
-
-    // Se o campo estiver vazio, mantém como inválido
-    if (valorConfirmar === "") {
-        ruleMatch.classList.remove('valid');
-        ruleMatch.classList.add('invalid');
-        return;
-    }
-
-    // Verifica se são exatamente iguais
-    if (valorSenha === valorConfirmar) {
-        ruleMatch.classList.remove('invalid');
-        ruleMatch.classList.add('valid');
-    } else {
-        ruleMatch.classList.remove('valid');
-        ruleMatch.classList.add('invalid');
-    }
-}
-
-// --- ENVIO DO FORMULÁRIO ---
-formCadastro.addEventListener('submit', async (event) => {
-    event.preventDefault(); // Impede a página de recarregar
-    console.log("Botão de cadastro clicado! Coletando dados...");
-
-    const nome = document.getElementById('nome').value;
-    const email = document.getElementById('email').value;
-    const senha = senhaInput.value;
-    const confirmPassword = confirmPasswordInput.value;
-
-    // Trava de segurança: impede o envio se alguma regra ainda estiver marcada como inválida
-    const temErroGeral = ruleLength.classList.contains('invalid') || 
-                         ruleUpper.classList.contains('invalid') || 
-                         ruleNumber.classList.contains('invalid') || 
-                         ruleMatch.classList.contains('invalid');
-
-    if (temErroGeral) {
-        alert("As senhas não cumprem todos os requisitos ou não coincidem! Verifique e tente novamente.");
-        return; 
-    }
-
-    const dadosUsuario = {
-        nome: nome,
-        email: email,
-        senha: senha
-    };
-
-    console.log("Enviando para o Java: ", dadosUsuario);
-
-    try {
-        const resposta = await fetch('http://localhost:8080/api/auth/registro', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(dadosUsuario)
+                // Altera obrigatoriedade dos campos
+                inputCurso.required = true;
+                inputPeriodo.required = true;
+                inputDepartamento.required = false;
+                inputSiape.required = false;
+            }
         });
+    }
 
-        if (resposta.ok) {
-            
-            // --- ADICIONADO: Salva o nome no navegador para o Feed usar depois ---
-            localStorage.setItem('usuarioNome', nome);
-            
-            alert('Cadastro realizado com sucesso!');
-            // Caminho relativo para a pasta de Login (sobe uma pasta com ../ e entra em Login)
-            window.location.href = '../Login/index.html'; 
-        } else {
-            const erroBackend = await resposta.text();
-            alert('Erro no cadastro: ' + erroBackend);
-        }
-    } catch (erro) {
-        console.error('Erro:', erro);
-        alert('Erro de conexão. Verifique se o BackendApplication (Java) está rodando.');
+    // --- FUNCIONALIDADE DO BOTÃO VOLTAR ---
+    if (btnVoltar) {
+        btnVoltar.addEventListener('click', function() {
+            window.location.href = '../Login/index.html';
+        });
+    }
+
+    // --- ENVIO DO FORMULÁRIO PARA O JAVA ---
+    if (formCadastro) {
+        formCadastro.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            console.log("Iniciando coleta e envio dos dados...");
+
+            const senha = document.getElementById('senha').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+
+            if (senha !== confirmPassword) {
+                alert("As senhas digitadas não coincidem! Verifique e tente novamente.");
+                return;
+            }
+
+            // Coleta dados comuns (Removido acento de tipoVinculo para compatibilidade estrita do DTO)
+            const dadosUsuario = {
+                nome: document.getElementById('nome').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                descricao: document.getElementById('descricao').value.trim(),
+                senha: senha,
+                tipoVinculo: tipoUsuario.value // Mapeado sem acento para o padrão do Java
+            };
+
+            // Insere dados específicos conforme a escolha da aba
+            if (tipoUsuario.value === 'discente') {
+                dadosUsuario.curso = inputCurso.value.trim();
+                dadosUsuario.periodo = parseInt(inputPeriodo.value, 10);
+                dadosUsuario.departamento = null;
+                dadosUsuario.siape = null;
+            } else {
+                dadosUsuario.curso = null;
+                dadosUsuario.periodo = null;
+                dadosUsuario.departamento = inputDepartamento.value.trim();
+                dadosUsuario.siape = inputSiape.value.trim();
+            }
+
+            console.log("Payload enviado para o Spring Boot: ", dadosUsuario);
+
+            try {
+                const resposta = await fetch('http://localhost:8080/api/auth/registro', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dadosUsuario)
+                });
+
+                if (resposta.ok) {
+                    alert('Cadastro realizado com sucesso!');
+                    window.location.href = '../Login/index.html'; 
+                } else {
+                    const erroBackend = await resposta.text();
+                    alert('Erro no cadastro: ' + erroBackend);
+                }
+            } catch (erro) {
+                console.error('Erro:', erro);
+                alert('Erro de conexão. Certifique-se de que sua API Java está ativa na porta 8080.');
+            }
+        });
     }
 });
 
-// FUNÇÃO DO OLHINHO 
+// Função para o ícone de olho
 function togglePass(fieldId) {
     const field = document.getElementById(fieldId);
-    if (field.type === "password") {
-        field.type = "text";
-    } else {
-        field.type = "password";
+    if (field) {
+        field.type = field.type === "password" ? "text" : "password";
     }
 }

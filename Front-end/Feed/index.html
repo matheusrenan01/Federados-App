@@ -15,12 +15,6 @@
 
     <header class="navbar navbar-feed">
         <div class="container navbar-content">
-            <nav class="nav-menu">
-                <a href="index.html">Início</a>
-                <a href="../Perfil/perfil.html">Perfil</a>
-                <a href="#" id="logout-btn">Sair</a>
-            </nav>
-
             <div class="logo-container">
                 <h1 class="logo">Federados</h1>
             </div>
@@ -28,33 +22,33 @@
             <div class="search-container">
                 <input type="text" placeholder="Buscar..." class="search-input">
             </div>
+
+            <nav class="nav-menu">
+                <a href="index.html">Início</a>
+                <a href="../Perfil/perfil.html">Perfil</a>
+                <a href="#" id="logout-btn">Sair</a>
+            </nav>
         </div>
     </header>
 
     <main class="container main-content">
         
         <aside class="sidebar">
-            <a href="../Perfil/perfil.html" class="profile-link-wrapper">
+            <a href="../Perfil/perfil.html" class="profile-link-wrapper" style="text-decoration: none; color: inherit;">
                 <div class="card profile-card">
                     <div class="profile-pic-container">
                         <img src="https://via.placeholder.com/80" alt="Foto de Perfil" class="profile-pic" id="side-photo">
                     </div>
-                    <h2 class="profile-name" id="side-name">Matheus Renan</h2>
-                    <p class="profile-course" id="side-info">Engenharia da Computação | 1º Semestre</p>
+                    <h2 class="profile-name" id="side-name">Carregando...</h2>
+                    <p class="profile-course" id="side-info">Carregando informações...</p>
                 </div>
             </a>
 
             <div class="card projects-card" id="portfolio-card">
                 <h3 class="card-title">📚 Portfólio de Projetos</h3>
-                <ul class="project-list" id="portfolio-list">
-                    <li>
-                        <span class="status-dot green"></span>
-                        <div class="project-info">
-                            <strong id="port-title">TCC I: Federados App</strong>
-                            <small id="port-desc">Em andamento - 80%</small>
-                        </div>
-                    </li>
-                </ul>
+                <div id="portfolio-content">
+                    <p style="font-size:12px; color:#999; text-align:center; padding: 10px 0;">Carregando projeto...</p>
+                </div>
             </div>
         </aside>
 
