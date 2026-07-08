@@ -35,7 +35,13 @@
             <div class="input-row" id="row-discente">
                 <div class="input-group flex-2">
                     <label>Curso*</label>
-                    <input type="text" id="curso" placeholder="ex: Engenharia da Computação">
+                    <select id="curso" class="custom-select" required>
+                        <option value="" selected disabled>Selecione seu curso</option>
+                        <option value="Engenharia da Computação">Engenharia da Computação</option>
+                        <option value="Engenharia de Automação">Engenharia de Automação</option>
+                        <option value="Engenharia Química">Engenharia Química</option>
+                        <option value="Engenharia Hídrica">Engenharia Hídrica</option>
+                    </select>
                 </div>
                 <div class="input-group flex-1">
                     <label>Período *</label>

@@ -1,181 +1,279 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Federados - Recuperação de Senha</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <div class="main-container">
+<div class="main-container">
 
-        <!-- ETAPA 1 -->
-        <div id="step-1">
-            <h1 class="federados-title">Federados</h1>
-            <h2 class="section-title">Recuperação de senha</h2>
-            <p class="obligatory-info">Insira o email cadastrado</p>
+    <!-- ================= ETAPA 1 ================= -->
 
-            <div class="input-group">
-                <input type="email" placeholder="ex: nome@ufrpe.br" id="email-input">
-            </div>
+    <div id="step-1">
 
-            <p class="info-text">
-                Um código de 6 dígitos será gerado e enviado para o email cadastrado e inserido anteriormente.
-                <br><br>
-                O código valerá por 5 minutos.
-            </p>
+        <h1 class="federados-title">Federados</h1>
 
-            <div class="btn-group">
-               
-                <button
-                    type="button"
-                    class="btn-outline"
-                    onclick="window.location.href='../Login/index.html'">
-                    Voltar
-                </button>
+        <h2 class="section-title">
+            Recuperação de senha
+        </h2>
 
-                <button
-                    type="button"
-                    class="btn-pill"
-                    id="btn-step-1"
-                    onclick="nextStep()">
-                    Avançar
-                </button>
-            </div>
-        </div>
+        <p class="obligatory-info">
+            Insira o email cadastrado.
+        </p>
 
-        <!-- ETAPA 2 -->
-        <div id="step-2" style="display:none;">
+        <div class="input-group">
 
-            <p id="timer"
-               style="color:white;font-weight:bold;text-align:center;margin:10px 0;">
-            </p>
-
-            <h1 class="federados-title">Federados</h1>
-            <h2 class="section-title">Recuperação de senha</h2>
-            <p class="obligatory-info">Insira o código de 6 dígitos.</p>
-
-            <div class="code-container">
-                <input type="text" maxlength="1" class="code-input">
-                <input type="text" maxlength="1" class="code-input">
-                <input type="text" maxlength="1" class="code-input">
-                <input type="text" maxlength="1" class="code-input">
-                <input type="text" maxlength="1" class="code-input">
-                <input type="text" maxlength="1" class="code-input">
-            </div>
-
-            <p class="info-text">
-                O código de 6 dígitos foi enviado ao email inserido anteriormente.
-                Verifique sua caixa de entrada.
-            </p>
-
-            <div class="btn-group">
-                <button
-                    type="button"
-                    class="btn-outline"
-                    onclick="prevStep()">
-                    Voltar
-                </button>
-
-                <button
-                    type="button"
-                    class="btn-pill"
-                    id="btn-step-2"
-                    onclick="verificarCodigo()">
-                    Avançar
-                </button>
-            </div>
+            <input
+                type="email"
+                id="email-input"
+                placeholder="nome@ufrpe.br">
 
         </div>
 
-        <!-- ETAPA 3 -->
-        <div id="step-3" style="display:none;">
+        <p class="info-text">
 
-            <h1 class="federados-title">Federados</h1>
-            <h2 class="section-title">Recuperação de senha</h2>
-            <p class="obligatory-info">Escolha sua nova senha</p>
+            Um código de recuperação será enviado para o email informado.
 
-            <div class="input-group">
-                <label>Nova senha *</label>
+            <br><br>
 
-                <div class="password-wrapper">
-                    <input
-                        type="password"
-                        id="nova-senha"
-                        placeholder="ex: Federados1234">
+            O código possui validade de <strong>5 minutos</strong>.
 
-                    <span
-                        class="toggle-password"
-                        onclick="togglePass('nova-senha')">
-                        👁️
-                    </span>
-                </div>
-            </div>
+        </p>
 
-            <div class="validation-list">
-                <p id="rule-length" class="invalid">
-                    Sua senha precisa ter pelo menos 8 caracteres.
-                </p>
+        <div class="btn-group">
 
-                <p id="rule-upper" class="invalid">
-                    Sua senha precisa ter pelo menos uma letra maiúscula.
-                </p>
+            <button
+                type="button"
+                class="btn-outline"
+                onclick="window.location.href='../Login/index.html'">
 
-                <p id="rule-number" class="invalid">
-                    Sua senha precisa ter pelo menos um número.
-                </p>
-            </div>
+                Voltar
 
-            <div class="input-group">
-                <label>Repetir nova senha *</label>
+            </button>
 
-                <div class="password-wrapper">
-                    <input
-                        type="password"
-                        id="confirmar-nova-senha"
-                        placeholder="ex: Federados1234">
+            <button
+                type="button"
+                class="btn-pill"
+                id="btn-step-1"
+                onclick="nextStep()">
 
-                    <span
-                        class="toggle-password"
-                        onclick="togglePass('confirmar-nova-senha')">
-                        👁️
-                    </span>
-                </div>
-            </div>
+                Avançar
 
-            <div class="validation-list">
-                <p id="rule-match" class="invalid">
-                    As senhas precisam ser iguais.
-                </p>
-            </div>
-
-            <div class="btn-group">
-
-                <button
-                    type="button"
-                    class="btn-outline"
-                    onclick="prevStepFrom3()">
-                    Voltar
-                </button>
-
-                <button
-                    type="button"
-                    class="btn-pill"
-                    id="btn-step-3"
-                    onclick="redefinirSenha()">
-                    Redefinir senha
-                </button>
-
-            </div>
+            </button>
 
         </div>
 
     </div>
 
-    <div class="dots-pattern"></div>
+    <!-- ================= ETAPA 2 ================= -->
 
-    <script src="script-recuperacao.js"></script>
+    <div
+        id="step-2"
+        style="display:none;">
+
+        <p id="timer"></p>
+
+        <h1 class="federados-title">
+            Federados
+        </h1>
+
+        <h2 class="section-title">
+            Recuperação de senha
+        </h2>
+
+        <p class="obligatory-info">
+
+            Digite o código de 6 dígitos.
+
+        </p>
+
+        <div class="code-container">
+
+            <input maxlength="1" class="code-input">
+            <input maxlength="1" class="code-input">
+            <input maxlength="1" class="code-input">
+            <input maxlength="1" class="code-input">
+            <input maxlength="1" class="code-input">
+            <input maxlength="1" class="code-input">
+
+        </div>
+
+        <p class="info-text">
+
+            O código foi enviado para o email informado.
+
+            <br>
+
+            Confira sua caixa de entrada e spam.
+
+        </p>
+
+        <div class="btn-group">
+
+            <button
+                type="button"
+                class="btn-outline"
+                onclick="prevStep()">
+
+                Voltar
+
+            </button>
+
+            <button
+                type="button"
+                class="btn-pill"
+                id="btn-step-2"
+                onclick="verificarCodigo()">
+
+                Avançar
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ================= ETAPA 3 ================= -->
+
+    <div
+        id="step-3"
+        style="display:none;">
+
+        <h1 class="federados-title">
+            Federados
+        </h1>
+
+        <h2 class="section-title">
+            Recuperação de senha
+        </h2>
+
+        <p class="obligatory-info">
+
+            Escolha sua nova senha.
+
+        </p>
+
+        <!-- Nova senha -->
+
+        <div class="input-group">
+
+            <label>Nova senha *</label>
+
+            <div class="password-wrapper">
+
+                <input
+                    type="password"
+                    id="nova-senha"
+                    placeholder="Digite sua nova senha">
+
+                <span
+                    class="toggle-password"
+                    onclick="togglePass('nova-senha')">
+
+                    👁️
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="validation-list">
+
+            <p id="rule-length" class="invalid">
+
+                Sua senha precisa ter pelo menos 8 caracteres.
+
+            </p>
+
+            <p id="rule-upper" class="invalid">
+
+                Sua senha precisa ter pelo menos uma letra maiúscula.
+
+            </p>
+
+            <p id="rule-number" class="invalid">
+
+                Sua senha precisa ter pelo menos um número.
+
+            </p>
+
+        </div>
+
+        <!-- Confirmar -->
+
+        <div class="input-group">
+
+            <label>Repetir nova senha *</label>
+
+            <div class="password-wrapper">
+
+                <input
+                    type="password"
+                    id="confirmar-nova-senha"
+                    placeholder="Repita sua nova senha">
+
+                <span
+                    class="toggle-password"
+                    onclick="togglePass('confirmar-nova-senha')">
+
+                    👁️
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="validation-list">
+
+            <p
+                id="rule-match"
+                class="invalid">
+
+                As senhas precisam ser iguais.
+
+            </p>
+
+        </div>
+
+        <div class="btn-group">
+
+            <button
+                type="button"
+                class="btn-outline"
+                onclick="prevStepFrom3()">
+
+                Voltar
+
+            </button>
+
+            <button
+                type="button"
+                class="btn-pill"
+                id="btn-step-3"
+                onclick="redefinirSenha()">
+
+                Redefinir senha
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="dots-pattern"></div>
+
+<script src="script-recuperacao.js"></script>
 
 </body>
+
 </html>

@@ -89,6 +89,7 @@ async function verificarCodigo() {
             clearInterval(countdown);
             document.getElementById('step-2').style.display = 'none';
             document.getElementById('step-3').style.display = 'block';
+            iniciarValidacaoSenha();
         } else {
             const erro = await resposta.text();
             alert(erro || "Código incorreto ou expirado.");
@@ -109,13 +110,28 @@ function prevStepFrom3() {
 }
 
 // --- ETAPA 3: validação de senha (mesmas regras do cadastro) e envio da nova senha ---
-const novaSenhaInput = document.getElementById('nova-senha');
-const confirmarNovaSenhaInput = document.getElementById('confirmar-nova-senha');
+let novaSenhaInput;
+let confirmarNovaSenhaInput;
 
-const ruleLength = document.getElementById('rule-length');
-const ruleUpper = document.getElementById('rule-upper');
-const ruleNumber = document.getElementById('rule-number');
-const ruleMatch = document.getElementById('rule-match');
+let ruleLength;
+let ruleUpper;
+let ruleNumber;
+let ruleMatch;
+
+function iniciarValidacaoSenha() {
+
+    novaSenhaInput = document.getElementById('nova-senha');
+    confirmarNovaSenhaInput = document.getElementById('confirmar-nova-senha');
+
+    ruleLength = document.getElementById('rule-length');
+    ruleUpper = document.getElementById('rule-upper');
+    ruleNumber = document.getElementById('rule-number');
+    ruleMatch = document.getElementById('rule-match');
+
+    novaSenhaInput.addEventListener("input", validarSenha);
+    confirmarNovaSenhaInput.addEventListener("input", validarSenha);
+
+}
 
 if (novaSenhaInput && confirmarNovaSenhaInput) {
 
@@ -153,25 +169,38 @@ if (novaSenhaInput && confirmarNovaSenhaInput) {
 
     confirmarNovaSenhaInput.addEventListener('input', validarIgualdade);
 }
-function validarIgualdade() {
-    const valorSenha = novaSenhaInput.value;
-    const valorConfirmar = confirmarNovaSenhaInput.value;
+function validarSenha() {
 
-    if (valorConfirmar === "") {
-        ruleMatch.classList.remove('valid');
-        ruleMatch.classList.add('invalid');
-        return;
-    }
+    const senha = novaSenhaInput.value;
+    const confirmar = confirmarNovaSenhaInput.value;
 
-    if (valorSenha === valorConfirmar) {
-        ruleMatch.classList.remove('invalid');
-        ruleMatch.classList.add('valid');
-    } else {
-        ruleMatch.classList.remove('valid');
-        ruleMatch.classList.add('invalid');
-    }
+    atualizarRegra(ruleLength, senha.length >= 8);
+
+    atualizarRegra(ruleUpper, /[A-Z]/.test(senha));
+
+    atualizarRegra(ruleNumber, /\d/.test(senha));
+
+    atualizarRegra(ruleMatch,
+        confirmar !== "" &&
+        senha === confirmar);
+
 }
 
+function atualizarRegra(regra, valido){
+
+    if(valido){
+
+        regra.classList.remove("invalid");
+        regra.classList.add("valid");
+
+    }else{
+
+        regra.classList.remove("valid");
+        regra.classList.add("invalid");
+
+    }
+
+}
 async function redefinirSenha() {
     const inputs = document.querySelectorAll('.code-input');
     const codigoDigitado = Array.from(inputs).map(i => i.value).join('');

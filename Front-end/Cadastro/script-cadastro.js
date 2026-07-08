@@ -12,7 +12,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const inputPeriodo = document.getElementById('periodo');
     const inputDepartamento = document.getElementById('departamento');
     const inputSiape = document.getElementById('siape');
+    
+    // ===== VALIDAÇÃO DA SENHA =====
+    const senhaInput = document.getElementById('senha');
+    const confirmarSenhaInput = document.getElementById('confirm_password');
 
+    const ruleLength = document.getElementById('rule-length');
+    const ruleUpper = document.getElementById('rule-upper');
+    const ruleNumber = document.getElementById('rule-number');
+    const ruleMatch = document.getElementById('rule-match');
     // --- LÓGICA DE ALTERNÂNCIA DE ABAS (DISCENTE / DOCENTE) ---
     if (tipoUsuario) {
         tipoUsuario.addEventListener('change', function() {
@@ -47,6 +55,42 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // ===== VALIDAÇÃO EM TEMPO REAL =====
+    senhaInput.addEventListener("input", validarSenha);
+    confirmarSenhaInput.addEventListener("input", validarSenha);
+
+    function validarSenha() {
+
+        const senha = senhaInput.value;
+        const confirmar = confirmarSenhaInput.value;
+
+        atualizarRegra(ruleLength, senha.length >= 8);
+
+        atualizarRegra(ruleUpper, /[A-Z]/.test(senha));
+
+        atualizarRegra(ruleNumber, /\d/.test(senha));
+
+        atualizarRegra(
+            ruleMatch,
+            confirmar !== "" && senha === confirmar
+        );
+    }
+
+    function atualizarRegra(elemento, valido) {
+
+        if (valido) {
+
+            elemento.classList.remove("invalid");
+            elemento.classList.add("valid");
+
+        } else {
+
+            elemento.classList.remove("valid");
+            elemento.classList.add("invalid");
+
+        }
+
+    }
     // --- ENVIO DO FORMULÁRIO PARA O JAVA ---
     if (formCadastro) {
         formCadastro.addEventListener('submit', async (event) => {
@@ -56,8 +100,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const senha = document.getElementById('senha').value;
             const confirmPassword = document.getElementById('confirm_password').value;
 
+            const senhaValida =
+                senha.length >= 8 &&
+                /[A-Z]/.test(senha) &&
+                /\d/.test(senha);
+
+            if (!senhaValida) {
+                alert("A senha não atende aos critérios.");
+                return;
+            }
+
             if (senha !== confirmPassword) {
-                alert("As senhas digitadas não coincidem! Verifique e tente novamente.");
+                alert("As senhas digitadas não coincidem.");
                 return;
             }
 
