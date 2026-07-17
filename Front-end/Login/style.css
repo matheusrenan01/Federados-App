@@ -1,0 +1,133 @@
+/* --- 1. CONFIGURAÇÕES GERAIS (RESET) --- */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; /* Essencial para os paddings não quebrarem os inputs */
+    font-family: 'Montserrat', sans-serif; /* Padronizado com o resto do sistema */
+}
+
+body { 
+    display: flex; 
+    justify-content: flex-end; /* Empurra o card de login para a extrema direita da tela */
+    align-items: center;       /* Centraliza o card verticalmente */
+    min-height: 100vh; 
+    background: url("./img/Plano de fundo2.jpeg") no-repeat center center; 
+    background-size: cover;    /* Altera para cover para preencher toda a tela sem repetir de forma estranha */
+}
+
+/* --- 2. CARD DE LOGIN --- */
+.container { 
+    width: 420px; 
+    min-height: 100vh; /* Faz o container ocupar toda a altura na lateral direita, se preferir estilo split-screen */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(to top, #001a4d, #003399); 
+    border-left: 1px solid #003399; /* Mudado para lateral esquerda já que ele cola na direita */
+    color: #fff; 
+    padding: 30px 40px; 
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.container h1 { 
+    font-size: 36px; 
+    text-align: center; 
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* --- 3. CAIXAS DE INPUT --- */
+.input-box { 
+    position: relative; 
+    width: 100%; 
+    height: 50px; 
+    margin: 30px 0; 
+}
+
+.input-box input { 
+    width: 100%; /* Faz o input herdar elasticamente o tamanho da box */
+    height: 100%; 
+    background-color: #fff; 
+    border: 1px solid rgba(255, 255, 255, .2); 
+    border-radius: 6px; /* Deixa as bordas ligeiramente arredondadas, casando com o feed */
+    outline: none; 
+    font-size: 16px; 
+    color: #4b67a1; 
+    padding: 0 45px 0 20px; /* Alinhamento interno perfeito usando altura total da box */
+}
+
+.input-box input::placeholder { 
+    color: #003399; 
+}
+
+/* Posicionamento dos Ícones do Boxicons */
+.input-box i { 
+    position: absolute; 
+    right: 20px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    font-size: 20px; 
+}
+
+.show-password { color: #003399; }
+.user-icon { color: #003399; }
+
+/* --- 4. LINKS E LEMBRAR SENHA --- */
+.remember-forgot { 
+    display: flex; 
+    justify-content: space-between; 
+    margin: -15px 0 25px; 
+    font-size: 14px;
+}
+
+.remember-forgot label { 
+    accent-color: #003399; 
+    cursor: pointer;
+}
+
+.remember-forgot a { 
+    text-decoration: none; 
+    color: #fff; 
+}
+
+.remember-forgot a:hover { 
+    text-decoration: underline; 
+}
+
+/* --- 5. BOTÃO DE SUBMIT --- */
+.login { 
+    width: 100%; 
+    height: 50px; 
+    background-color: #fff; 
+    border: none; 
+    border-radius: 40px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    color: #003399; 
+    font-weight: 600; 
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    transition: all 0.3s ease;
+}
+
+.login:hover { 
+    background-color: #003399; 
+    border: 2px solid rgba(255, 255, 255, .2); 
+    color: #fff; 
+}
+
+/* --- 6. LINK DE CADASTRO --- */
+.register-link { 
+    font-size: 14px; 
+    text-align: center; 
+    margin: 25px 0 0; 
+}
+
+.register-link a { 
+    text-decoration: none; 
+    color: #fff; 
+    font-weight: 600; 
+}
+
+.register-link a:hover { 
+    text-decoration: underline; 
+}

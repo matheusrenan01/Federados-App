@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Federados</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="perfil.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container navbar-content">
+            <div class="logo-container">
+                <h1 class="logo">Federados</h1> 
+            </div>
+
+            <nav class="nav-menu">
+                <a href="../Feed/index.html">Início</a>
+                <a href="perfil.html">Perfil</a>
+                <a href="#" id="logout-btn">Sair</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="card profile-header-full">
+            <div class="profile-pic-large">
+                <img src="https://via.placeholder.com/120" id="display-pic" alt="Foto de perfil">
+            </div>
+            <div class="profile-text-main">
+                <h1 id="display-name">Carregando...</h1>
+                <p>
+                    <span id="display-course">Curso</span> | 
+                    <span id="display-semester">1º Semestre</span>
+                </p>
+                <p id="display-bio" class="profile-bio-text">Sua biografia aparecerá aqui...</p>
+            </div>
+        </div>
+
+        <section class="card settings-card">
+            <h3>Configurações de Perfil</h3>
+            <hr><br>
+            
+            <div class="form-group">
+                <label>Foto de Perfil</label>
+                <input type="file" id="input-file" accept="image/*" class="form-input">
+            </div>
+
+            <div class="form-group">
+                <label>Nome Completo</label>
+                <input type="text" id="input-name" class="form-input">
+            </div>
+
+            <div class="form-group">
+                <label>Biografia</label>
+                <textarea id="input-bio" class="form-input" rows="3" placeholder="Conte um pouco sobre você..."></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Curso</label>
+                    <input type="text" id="input-course" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Semestre Atual</label>
+                    <select id="input-semester" class="form-input">
+                        <option value="1">1º Semestre</option>
+                        <option value="2">2º Semestre</option>
+                        <option value="3">3º Semestre</option>
+                        <option value="4">4º Semestre</option>
+                        <option value="5">5º Semestre</option>
+                        <option value="6">6º Semestre</option>
+                        <option value="7">7º Semestre</option>
+                        <option value="8">8º Semestre</option>
+                        <option value="9">9º Semestre</option>
+                        <option value="10">10º Semestre</option>
+                    </select>
+                </div>
+            </div>
+            
+            <h3 class="section-title">Meu Portfólio</h3>
+            <hr><br>
+
+            <div class="form-group">
+                <label>Título do Projeto</label>
+                <input type="text" id="input-project-name" class="form-input" placeholder="Ex: TCC I: Federados App">
+            </div>
+
+            <div class="form-group">
+                <label>Detalhes do Projeto</label>
+                <input type="text" id="input-project-desc" class="form-input" placeholder="Ex: Em andamento - 80%">
+            </div>
+
+            <div class="form-group">
+                <label>Capa do Projeto (Opcional)</label>
+                <input type="file" id="input-project-file" accept="image/*" class="form-input">
+            </div>
+
+            <button type="button" id="btn-save-all" class="btn-save">Salvar Todas as Alterações</button>
+        </section>
+    </main>
+    <script src="../common/auth.js"></script>
+    <script src="script-perfil.js"></script>
+</body>
+</html>
